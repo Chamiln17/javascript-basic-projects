@@ -217,7 +217,7 @@ Modal
   place-items: center;
   transition: var(--transition);
   visibility: hidden;
-  z-index: -10;
+  z-index: +10;
 }
 /* OPEN/CLOSE MODAL */
 .open-modal {
