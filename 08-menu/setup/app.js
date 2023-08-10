@@ -71,4 +71,78 @@ const menu = [
     img: "./images/item-9.jpeg",
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
+  {
+    id: 10,
+    title: "steak dinner",
+    category: "dinner",
+    price: 49.99,
+    img: "./images/item-10.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
 ];
+const menuItems = document.querySelector(".section-center");
+const btnContainer = document.querySelector(".btn-container");
+
+// load items
+window.addEventListener("DOMContentLoaded", () => {
+  displayMenuItems(menu);
+  displayMenuButtons(); 
+});
+const displayBtns= (categories) => {
+  let btnDisplay = categories.map((category) => {
+    return `<button class="filter-btn" type="button" data-id=${category}>${category}</button>`;
+  }).join("");
+  btnContainer.innerHTML=btnDisplay;
+};
+// filter items
+
+const filterFunction = (filterBtns)=>{filterBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    let category = e.currentTarget.dataset.id;
+    let menuCategory = menu.filter((menuItem) => {
+      if (menuItem.category === category) {
+        return menuItem;
+      }
+    });
+    if (category === "all") {
+      displayMenuItems(menu);
+    } else {
+      displayMenuItems(menuCategory);
+    }
+  });
+});};
+
+const displayMenuItems = (menu) => {
+  let menuDipslay = menu
+    .map((item) => {
+      return `<!-- single item -->
+    <article class="menu-item">
+      <img src=${item.img} class="photo" alt=${item.title} />
+      <div class="item-info">
+        <header>
+          <h4>${item.title}</h4>
+          <h4 class="price">${item.price}$</h4>
+        </header>
+        <p class="item-text">${item.desc}</p>
+      </div>
+    </article>
+    <!-- end single item -->`;
+    })
+    .join("");
+  //console.log(menuDipslay);
+  menuItems.innerHTML = menuDipslay;
+};
+const displayMenuButtons = () => {
+  const categories = menu.reduce(
+    (acc, curr) => {
+      if (!acc.includes(curr.category)) {
+        acc.push(curr.category);
+      }
+      return acc;
+    },
+    ["all"]
+  );
+  displayBtns(categories);
+  const filterBtns = btnContainer.querySelectorAll(".filter-btn");
+  filterFunction(filterBtns);
+};
