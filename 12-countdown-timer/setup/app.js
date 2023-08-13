@@ -25,7 +25,13 @@ const items = document.querySelectorAll(".deadline-format h4");
 const deadline = document.querySelector(".deadline");
 const giveaway = document.querySelector(".giveaway");
 
-let futureDate = new Date(2023,7,12,10,0,0);
+const tempDate = new Date();
+let tempYear = tempDate.getFullYear();
+let tempMonth = tempDate.getMonth();
+let tempDay = tempDate.getDate();
+
+
+let futureDate = new Date(tempYear,tempMonth,tempDay+5,10,0,0);//countdown always 5 days ahead
 const year = futureDate.getFullYear();
 const month = futureDate.getMonth();
 const date = futureDate.getDate();
